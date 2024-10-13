@@ -24,4 +24,4 @@ int main(){
     int result = ispythagore(a, b, c);
     printf("%d", result);
     return 0;
-}
+}   
