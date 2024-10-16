@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include<time.h>
 
 void findPythagoreanTriplets(int N)
 {
@@ -40,8 +41,10 @@ void findPythagoreanTripletsBetter(int n)
 int main()
 {
     int N;
+    long t = time(NULL);
     printf("Enter the number of Pythagorean triplets to display: ");
     scanf("%d", &N);
     findPythagoreanTriplets(N);
+    printf("%ld",time(NULL)-t);
     return 0;
 }
