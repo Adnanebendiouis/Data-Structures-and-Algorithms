@@ -11,11 +11,15 @@ int Incorrectement_parenthesee(char arg[]){
         else if(arg[i] == ')'){
             count--;
         }
+        if(count<0){
+        return -i;
+    }
         i++;
     }
     if(count == 0){
         return 0;
     }
+
     else{
         return count;
     }
@@ -24,8 +28,9 @@ int Incorrectement_parenthesee(char arg[]){
 
 
 int main(){
-    char chaine[]="(int(double((bool))))";
-    printf("%d",Incorrectement_parenthesee(chaine));
+    char chaine[]="(int(double((bool)))))))";
+    printf("%d\n",strlen(chaine));
+    printf("%d\n",Incorrectement_parenthesee(chaine));
     
     
     
