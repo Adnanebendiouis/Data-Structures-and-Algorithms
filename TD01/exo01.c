@@ -18,6 +18,24 @@ void findPythagoreanTriplets(int N)
         }
     }
 }
+void findPythagoreanTripletsBetter(int n)
+{
+    int count = 0;
+    for (int c = 3; count < n; c++)
+    {
+        for (int b = c - 1; b >= 2; b--)
+        {
+            for (int a = b-1; a >= 1; a--)
+            {
+                if (a * a + b * b == c * c)
+                {
+                    count++;
+                    printf("%d: %d^2 + %d^2 = %d^2 (= %d)\n", count, a, b, c, c * c);
+                }
+            }
+        }
+    }
+}
 
 int main()
 {
