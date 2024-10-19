@@ -38,13 +38,46 @@ void findPythagoreanTripletsBetter(int n)
     }
 }
 
+int gcd(int a, int b)
+{
+    while (b != 0)
+    {
+        int t = b;
+        b = a % b;
+        a = t;
+    }
+    return a;
+}
+void findPythagoreanTripletsOptimized(int n)
+{
+    int count = 0;
+    for (int m = 2; count < n; m++)
+    {
+        for (int k = 1; k < m && count < n; k++)
+        {
+            if ((m - k) % 2 == 1 && gcd(m, k) == 1) 
+            {
+                int a = m * m - k * k;
+                int b = 2 * m * k;
+                int c = m * m + k * k;
+                count++;
+                printf("%d: %d^2 + %d^2 = %d^2 (= %d)\n", count, a, b, c, c * c);
+            }
+        }
+    }
+}
+
+
+
+
+
 int main()
 {
     int N;
     long t = time(NULL);
     printf("Enter the number of Pythagorean triplets to display: ");
     scanf("%d", &N);
-    findPythagoreanTriplets(N);
+    findPythagoreanTripletsOptimized(N);
     printf("%ld",time(NULL)-t);
     return 0;
 }
