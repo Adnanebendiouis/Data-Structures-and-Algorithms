@@ -17,6 +17,7 @@ int chercheTab(int A[], int T[], int n, int m)
     return count;
 }
 
+
 int main()
 {
     int A[] = {1, 3, 7};
