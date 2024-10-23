@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<string.h>
 
-int Incorrectement_parenthesee(char arg[]){
+int Incorrectement_parenthesee(char *arg){
     int i = 0;
     int count = 0;
     while(arg[i] != '\0'){
@@ -30,7 +30,7 @@ int Incorrectement_parenthesee(char arg[]){
 
 
 int main(){
-    char chaine[]="(int))(double((bool)))))))";
+    char *chaine="(int))(double((bool)))))))";
     // printf("%d\n",strlen(chaine));
     printf("%d\n",Incorrectement_parenthesee(chaine));
     
