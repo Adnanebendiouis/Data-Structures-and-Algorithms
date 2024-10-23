@@ -12,24 +12,26 @@ int Incorrectement_parenthesee(char arg[]){
             count--;
         }
         if(count<0){
-        return -i;
+        return -i-1;
     }
         i++;
     }
     if(count == 0){
         return 0;
     }
-
     else{
         return count;
+    }
+     if(count == 0){
+        return 0;
     }
 }
 
 
 
 int main(){
-    char chaine[]="(int(double((bool)))))))";
-    printf("%d\n",strlen(chaine));
+    char chaine[]="(int))(double((bool)))))))";
+    // printf("%d\n",strlen(chaine));
     printf("%d\n",Incorrectement_parenthesee(chaine));
     
     
