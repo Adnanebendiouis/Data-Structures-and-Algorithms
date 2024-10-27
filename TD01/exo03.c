@@ -11,6 +11,7 @@ int chercheTab(int A[], int T[], int n, int m)
             {
                 count++;
                 printf("%d |",A[i]);
+                break;
             }
         }
     }
