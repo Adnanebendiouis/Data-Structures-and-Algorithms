@@ -46,8 +46,28 @@ int cherchetabrec(int A[], int n, int size)
     }
     return cherchetabrec(A, n, --size);
 }
+int incorrectement_parenthesee(char chaine[], int i, int count) {
+    if (chaine[i] == '\0') {
+        return count;
+    }
+    if (chaine[i] == '(') {
+        return incorrectement_parenthesee(chaine, i+1, count+1);
+    }
+    if (chaine[i] == ')') {
+        if(count == 0){
+            return -i-1; 
+        } else {
+            return incorrectement_parenthesee(chaine, i+1, count-1);
+        }
+    }
+    return incorrectement_parenthesee(chaine, i+1, count);
+}
 int main()
 {
+    char chaine1[] = "(abc(defij)klmnop)";
+    char chaine2[] = "(abc(def)))ghijklmn()";
+    printf("Resultat pour chaine1  %d\n", incorrectement_parenthesee(chaine1, 0, 0));
+    printf("Resultat pour chaine2  %d\n", incorrectement_parenthesee(chaine2, 0, 0));
     int A[] = {2, 6, 6, 3, 5, 7, 1, 3, 9};
     int size = sizeof(A)/sizeof(A[0]);
     printf("%d\n",cherchetabrec(A,1,size));
