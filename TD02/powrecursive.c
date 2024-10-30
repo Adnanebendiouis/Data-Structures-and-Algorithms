@@ -62,16 +62,37 @@ int incorrectement_parenthesee(char chaine[], int i, int count) {
     }
     return incorrectement_parenthesee(chaine, i+1, count);
 }
+int chercheTabRec(int A[],int T[],int n,int m,int i,int j){
+   if(i>=n){
+         return 0;
+   }
+    if(j>=m){
+            return chercheTabRec(A,T,n,m,i+1,0);
+    }   
+    if(A[i]==T[j]){
+        printf("%d |",A[i]);
+        return 1+chercheTabRec(A,T,n,m,i+1,0);
+    }
+    return chercheTabRec(A,T,n,m,i,j+1);
+}
 int main()
 {
-    char chaine1[] = "(abc(defij)klmnop)";
-    char chaine2[] = "(abc(def)))ghijklmn()";
-    printf("Resultat pour chaine1  %d\n", incorrectement_parenthesee(chaine1, 0, 0));
-    printf("Resultat pour chaine2  %d\n", incorrectement_parenthesee(chaine2, 0, 0));
-    int A[] = {2, 6, 6, 3, 5, 7, 1, 3, 9};
-    int size = sizeof(A)/sizeof(A[0]);
-    printf("%d\n",cherchetabrec(A,1,size));
-    printf("%f\n", pow_rec(2, 10));
-    printf("%d\n", sumnbriter(429));
-    printf("%d\n", sumnbrrec(429));
+    // char chaine1[] = "(abc(defij)klmnop)";
+    // char chaine2[] = "(abc(def)))ghijklmn()";
+    // printf("Resultat pour chaine1  %d\n", incorrectement_parenthesee(chaine1, 0, 0));
+    // printf("Resultat pour chaine2  %d\n", incorrectement_parenthesee(chaine2, 0, 0));
+    // int A[] = {2, 6, 6, 3, 5, 7, 1, 3, 9};
+    // int size = sizeof(A)/sizeof(A[0]);
+    // printf("%d\n",cherchetabrec(A,1,size));
+    // printf("%f\n", pow_rec(2, 10));
+    // printf("%d\n", sumnbriter(429));
+    // printf("%d\n", sumnbrrec(429));
+    int T1[] = {1, 3, 7};
+    int T2[] = {1, 2, 3, 4, 5, 6};
+    int n = sizeof(T1) / sizeof(T1[0]);
+    int m = sizeof(T2) / sizeof(T2[0]);
+
+    printf("Les elements communs sont : ");
+    int count = chercheTabRec(T1, T2, n, m, 0, 0);
+    printf("\nLe nombre d elements est : %d\n", count);
 }
