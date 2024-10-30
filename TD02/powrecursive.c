@@ -75,6 +75,16 @@ int chercheTabRec(int A[],int T[],int n,int m,int i,int j){
     }
     return chercheTabRec(A,T,n,m,i,j+1);
 }
+int recurec(int A[],int n,int i,int element){
+    if(n==i){
+        return 0;
+    }
+    if(A[i]==element){
+        return 1+recurec(A,n,i+1,element);
+    }
+    return recurec(A,n,i+1,element);
+ 
+}
 int main()
 {
     // char chaine1[] = "(abc(defij)klmnop)";
@@ -89,10 +99,23 @@ int main()
     // printf("%d\n", sumnbrrec(429));
     int T1[] = {1, 3, 7};
     int T2[] = {1, 2, 3, 4, 5, 6};
-    int n = sizeof(T1) / sizeof(T1[0]);
+    // int n = sizeof(T1) / sizeof(T1[0]);
     int m = sizeof(T2) / sizeof(T2[0]);
+    int A[]={2,5,2,8,9,8,2,5};
+    int n = sizeof(A) / sizeof(A[0]);
+    int count = recurec(A,n,0,2);
+    if(count==0){
+        printf("Element non trouve\n");
+        }
+        else if(count<2){
+            printf("the element does not repeat\n");
+        }
+        else{
+            printf("the element repeats %d times\n",count);
+        }
+    
 
     printf("Les elements communs sont : ");
-    int count = chercheTabRec(T1, T2, n, m, 0, 0);
-    printf("\nLe nombre d elements est : %d\n", count);
+    int count1 = chercheTabRec(T1, T2, n, m, 0, 0);
+    printf("\nLe nombre d elements est : %d\n", count1);
 }
