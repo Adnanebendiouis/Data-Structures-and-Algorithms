@@ -23,7 +23,7 @@ int sumnbrrec(int n)
     {
         return 0;
     }
-    return n % 10 + sumnbrrec(n / 10);
+    return n%10 + sumnbrrec(n/10);
 }
 int cherchetabiter(int A[], int n)
 {
@@ -36,7 +36,7 @@ int cherchetabiter(int A[], int n)
 }
 int cherchetabrec(int A[], int n, int size)
 {
-    if (size < 0)
+    if (size<0)
     {
         return 0;
     }
@@ -87,19 +87,19 @@ int recurec(int A[],int n,int i,int element){
 }
 int main()
 {
-    // char chaine1[] = "(abc(defij)klmnop)";
-    // char chaine2[] = "(abc(def)))ghijklmn()";
-    // printf("Resultat pour chaine1  %d\n", incorrectement_parenthesee(chaine1, 0, 0));
-    // printf("Resultat pour chaine2  %d\n", incorrectement_parenthesee(chaine2, 0, 0));
-    // int A[] = {2, 6, 6, 3, 5, 7, 1, 3, 9};
-    // int size = sizeof(A)/sizeof(A[0]);
-    // printf("%d\n",cherchetabrec(A,1,size));
-    // printf("%f\n", pow_rec(2, 10));
-    // printf("%d\n", sumnbriter(429));
-    // printf("%d\n", sumnbrrec(429));
+    char chaine1[] = "(abc(defij)klmnop)";
+    char chaine2[] = "(abc(def)))ghijklmn()";
+    printf("Resultat pour chaine1  %d\n", incorrectement_parenthesee(chaine1, 0, 0));
+    printf("Resultat pour chaine2  %d\n", incorrectement_parenthesee(chaine2, 0, 0));
+    int A[] = {2, 6, 6, 3, 5, 7, 1, 3, 9};
+    int size = sizeof(A)/sizeof(A[0]);
+    printf("%d\n",cherchetabrec(A,1,size));
+    printf("%f\n", pow_rec(2, 10));
+    printf("%d\n", sumnbriter(429));
+    printf("%d\n", sumnbrrec(429));
     int T1[] = {1, 3, 7};
     int T2[] = {1, 2, 3, 4, 5, 6};
-    // int n = sizeof(T1) / sizeof(T1[0]);
+    int n1 = sizeof(T1) / sizeof(T1[0]);
     int m = sizeof(T2) / sizeof(T2[0]);
     int A[]={2,5,2,8,9,8,2,5};
     int n = sizeof(A) / sizeof(A[0]);
