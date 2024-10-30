@@ -1,5 +1,5 @@
 #include <stdio.h>
-double pow_rec(int nb, int power)
+double pow_rec(double nb, int power)
 {
     if (power == 0)
     {
@@ -24,11 +24,7 @@ int sumnbriter(int n)
 }
 int sumnbrrec(int n)
 {
-    if (n == 0)
-    {
-        return 0;
-    }
-    return n%10 + sumnbrrec(n/10);
+    return n == 0 ? 0  : n%10 + sumnbrrec(n/10);
 }
 int cherchetabiter(int A[], int n)
 {
