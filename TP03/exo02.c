@@ -1,18 +1,19 @@
 #include <stdio.h>
 void trieparinsertion(int A[], int n) {
-    if (n <= 1) return;
-
-    trieparinsertion(A, n - 1);
-
-    int i = A[n - 1];
-    int j = n - 2;
-
-    if (j >= 0 && A[j] > i) {
-        A[n - 1] = A[j];
-        trieparinsertion(A, n - 1);
-        A[j] = i;
+    if (n < 0) {
+        return;
+    }
+    trieparinsertion(A, n-1 );
+    int last = A[n];
+    int j = n - 1;
+    if (j >= 0 && A[j] > last) {
+        A[j + 1] = A[j];
+        A[j] = last;
+        trieparinsertion(A, n-1);
     } else {
-        A[j + 1] = i;
+
+        A[j + 1] = last;
+
     }
 }
 void afftab1(int A[],int n){
@@ -103,7 +104,7 @@ int main() {
     int choice, n, m, V, X;
     int T2[100];
     int A[100];
-    
+
     do {
         printf("\nMenu:\n");
         printf("1. Lire le tableau\n");
@@ -113,6 +114,7 @@ int main() {
         printf("5. Recherche dichotomique\n");
         printf("6. Inserer une valeur dans un tableau trie\n");
         printf("7. Afficher les elements communs entre deux tableaux tries\n");
+        printf("8. trie par insertion\n");
         printf("0. Quitter\n");
         printf("Entrez votre choix: ");
         scanf("%d", &choice);
@@ -169,6 +171,13 @@ int main() {
                 afficherElementsCommuns(A, n, 0, T2, m, 0);
                 printf("\n");
                 break;
+            case 8:
+            afficherTableau(A,n,0);
+            printf("\n");
+            trieparinsertion(A,n);
+            printf("\n");
+            afficherTableau(A,n,0);
+            break;    
             default:
                 printf("Choix invalide. Veuillez reessayer.\n");
         }
