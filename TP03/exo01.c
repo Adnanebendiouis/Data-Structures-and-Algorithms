@@ -3,14 +3,18 @@ int factorial(int n)
 {
 if (n <= 1)
 return 1;
-else
+else 
 return n * factorial(n - 1);
 }
 int pgcd(int a, int b) {
     if (b == 0) {
         return a;
     }
-    return pgcd(b, a % b);
+    
+    if(a>b)
+     return pgcd(b, a - b);
+
+
 }
 int sumnbrrec(int n)
 {
@@ -53,9 +57,6 @@ int main() {
                 printf("Entrez un nombre: ");
                 scanf("%d", &n);
                 printf("Le nombre de chiffres dans %d est %d\n", n, countlong(n));
-                break;
-            case 0:
-                printf("Quitter...\n");
                 break;
             default:
                 printf("Choix invalide. Veuillez réessayer.\n");

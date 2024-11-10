@@ -1,4 +1,32 @@
 #include <stdio.h>
+void trieparinsertion(int A[], int n) {
+    if (n <= 1) return;
+
+    trieparinsertion(A, n - 1);
+
+    int i = A[n - 1];
+    int j = n - 2;
+
+    if (j >= 0 && A[j] > i) {
+        A[n - 1] = A[j];
+        trieparinsertion(A, n - 1);
+        A[j] = i;
+    } else {
+        A[j + 1] = i;
+    }
+}
+void afftab1(int A[],int n){
+    if(n>=0){
+        afftab1(A,n-1);
+        printf("%d |",A[n]);
+    }
+}
+void afftab2(int A[],int n){
+    if(n>=0){
+        printf("%d |",A[n]);
+        afftab2(A,n-1);
+    }
+}
 void lireTableau(int A[], int n, int i) {
     if (i >= n) {
         return;
@@ -27,19 +55,24 @@ int occurrences(int A[], int n, int i, int V) {
     return (A[i] == V) + occurrences(A, n, i + 1, V);
 }
 int rechercheDichotomique(int T[], int val, int low, int high) {
-    if (low > high) {
-        return -1; 
-    }
-
-    int mid = low + (high - low) / 2; 
-
-    if (T[mid] == val) {
-        return mid;
-    } else if (T[mid] < val) {
-        return rechercheDichotomique(T, val, mid + 1, high); 
+    if (low < high) {
+        
+        //  printf("%d | %d",mid,T[mid]);
+    if (T[(high-low)/2] == val) {
+        printf("%d",(high-low)/2);
+        return (high-low)/2;
+    } 
+    else if (T[(high-low)/2] < val) {
+        return rechercheDichotomique(T, val, (high-low)/2 + 1, high); 
     } else {
-        return rechercheDichotomique(T, val, low, mid - 1); 
+        return rechercheDichotomique(T, val, low, (high-low)/2 - 1); 
     }
+        
+    }
+    else 
+     return -1; 
+
+
 }
 void insererDansTableauTrie(int A[], int n, int V, int i) {
     if (i >= n || A[i] > V) {
@@ -70,11 +103,12 @@ int main() {
     int choice, n, m, V, X;
     int T2[100];
     int A[100];
+    
     do {
         printf("\nMenu:\n");
         printf("1. Lire le tableau\n");
         printf("2. Afficher le tableau\n");
-        printf("3. Calculer la somme des éléments\n");
+        printf("3. Calculer la somme des elements\n");
         printf("4. Compter les occurrences d une valeur\n");
         printf("5. Recherche dichotomique\n");
         printf("6. Inserer une valeur dans un tableau trie\n");
@@ -89,6 +123,9 @@ int main() {
                 scanf("%d", &n);
                 
                 lireTableau(A, n, 0);
+                afftab1(A, n-1);
+                printf("\n");
+                afftab2(A,n-1);
                 break;
             case 2:
                 printf("Les elements du tableau sont: ");
@@ -106,19 +143,20 @@ int main() {
             case 5:
                 printf("Entrez la valeur a chercher par dichotomie: ");
                 scanf("%d", &X);
-                int index = rechercheDichotomique(A, 0, n - 1, X);
-                if (index != -1) {
-                    printf("L element %d a ete trouve a l index %d\n", X, index);
+                int index = rechercheDichotomique(A, X, 0, n-1);
+                if (index =-1) {
+                     printf("L element %d n a pas ete trouve\n", X);
+                    
                 } else {
-                    printf("L element %d n a pas ete trouve\n", X);
+                   printf("L element %d a ete trouve a l index %d\n", X, index);
                 }
                 break;
             case 6:
-                printf("Entrez la nouvelle valeur à insérer: ");
+                printf("Entrez la nouvelle valeur a insarer: ");
                 scanf("%d", &V);
                 insererDansTableauTrie(A, n, V, 0);
                 n++; 
-                printf("Les éléments du tableau après insertion sont: ");
+                printf("Les elements du tableau apres insertion sont: ");
                 afficherTableau(A, n, 0);
                 printf("\n");
                 break;
