@@ -7,8 +7,8 @@ else
 return n * factorial(n - 1);
 }
 int pgcd(int a, int b) {
-    if (b == 0) {
-        return a;
+    if (a<b) {
+        return 1;
     }
     
     if(a>b)
