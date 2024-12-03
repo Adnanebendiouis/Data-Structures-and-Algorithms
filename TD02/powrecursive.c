@@ -61,6 +61,7 @@ int incorrectement_parenthesee(char chaine[], int i, int count) {
     return incorrectement_parenthesee(chaine, i+1, count);
 }
 int chercheTabRec(int A[],int T[],int n,int m,int i,int j){
+   
    if(i>=n){
          return 0;
    }
@@ -103,10 +104,10 @@ int rechelem(int A[], int n, int i) {
 }
 int main()
 {
-    char chaine1[] = "(abc(defij)klmnop)";
-    char chaine2[] = "(abc(def)))ghijklmn()";
+    // char chaine1[] = "(abc(defij)klmnop)";
+    // char chaine2[] = "(abc(def)))ghijklmn()";
     // printf("Resultat pour chaine1  %d\n", incorrectement_parenthesee(chaine1, 0, 0));
-    printf("Resultat pour chaine2  %d\n", incorrectement_parenthesee(chaine2, 0, 0));
+    // printf("Resultat pour chaine2  %d\n", incorrectement_parenthesee(chaine2, 0, 0));
     // int A[] = {2, 6, 6, 3, 5, 7, 1, 3, 9};
     // int size = sizeof(A)/sizeof(A[0]);
     // printf("%d\n",cherchetabrec(A,1,size));
@@ -114,10 +115,11 @@ int main()
     // printf("%d",sumnbrrec(429));
     // printf("%d\n", sumnbriter(429));
     // printf("%d\n", sumnbrrec(429));
-    // int T1[] = {1, 3, 7};
-    // int T2[] = {1, 2, 3, 4, 5, 6};
-    // int n1 = sizeof(T1) / sizeof(T1[0]);
-    // int m = sizeof(T2) / sizeof(T2[0]);
+    int T1[] = {1, 3, 7};
+    int T2[] = {1, 2, 3, 4, 5, 6};
+    int n1 = sizeof(T1) / sizeof(T1[0]);
+    int m = sizeof(T2) / sizeof(T2[0]);
+    printf("%d\n",chercheTabRec(T1,T2,n1,m,0,0));
     // int A[]={2,5,2,8,9,8,2,5};
     // int n = sizeof(A) / sizeof(A[0]);
     // int count = recurec(A,n,0,2);
@@ -135,12 +137,13 @@ int main()
     // printf("Les elements communs sont : ");
     // int count1 = chercheTabRec(T1, T2, n, m, 0, 0);
     // printf("\nLe nombre d elements est : %d\n", count1);
-    int A[] = {1, 2, 3,  3, 1, 4, 4};
-    int n = sizeof(A) / sizeof(A[0]);
+//     int A[] = {1, 2, 3,  3, 1, 4, 4};
+//     int n = sizeof(A) / sizeof(A[0]);
 
-    if (rechelem(A, n, 0)) {
-        printf("Tous les elements apparaissent au moins deux fois.\n");
-    } else {
-        printf("Tous les elements n'apparaissent pas au moins deux fois.\n");
-    }
+//     if (rechelem(A, n, 0)) {
+//         printf("Tous les elements apparaissent au moins deux fois.\n");
+//     } else {
+//         printf("Tous les elements n'apparaissent pas au moins deux fois.\n");
+//     }
+    return 0;
 }

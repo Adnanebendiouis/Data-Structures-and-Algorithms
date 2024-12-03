@@ -146,7 +146,7 @@ int main() {
                 printf("Entrez la valeur a chercher par dichotomie: ");
                 scanf("%d", &X);
                 int index = rechercheDichotomique(A, X, 0, n-1);
-                if (index =-1) {
+                if(index =-1){
                      printf("L element %d n a pas ete trouve\n", X);
                     
                 } else {
@@ -178,6 +178,8 @@ int main() {
             printf("\n");
             afficherTableau(A,n,0);
             break;    
+            case 0:
+            break;
             default:
                 printf("Choix invalide. Veuillez reessayer.\n");
         }

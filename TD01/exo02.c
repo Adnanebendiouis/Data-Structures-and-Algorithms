@@ -26,10 +26,7 @@ int Incorrectement_parenthesee(char *arg){
         return 0;
     }
 }
-
-
-
-int main(){
+ int main(){
     char *chaine="(int))(double((bool)))))))";
     // printf("%d\n",strlen(chaine));
     printf("%d\n",Incorrectement_parenthesee(chaine));
