@@ -185,9 +185,9 @@ void sup_apos(Liste *liste, int pos) {
         free(tmp);
     }
 }
-void copie(Liste liste){
+Liste copie(Liste liste){
     Liste copie = liste;
-    return NULL;
+    return copie;
 }
 
 int main() {
