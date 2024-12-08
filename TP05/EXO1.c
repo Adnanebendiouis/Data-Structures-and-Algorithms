@@ -11,6 +11,25 @@ typedef struct DList
     struct ElementListe *debut;
     struct ElementListe *fin;
 } liste;
+typedef struct cellule cellule;
+typedef cellule *Liste;
+
+struct cellule {
+    int val;
+    struct cellule *suivant;
+};
+
+cellule *initialiser_Liste_simple(cellule *liste) {
+    liste = NULL;
+    return liste;
+}
+
+Liste Ajouter_Debut_Liste(cellule *liste, int valeur) {
+    Liste newcellule = malloc(sizeof(cellule));
+    newcellule->val = valeur;
+    newcellule->suivant = liste;
+    return newcellule;
+}
 liste *initialiser_Liste(liste *L)
 {
     L = malloc(sizeof(liste));
@@ -78,6 +97,17 @@ liste *ajout_Fin(liste *L, int X)
         L->fin = newElement;
     }
     return L;
+}
+int compter_elements(liste *L)
+{
+    int count = 0;
+    Element *tmp = L->debut;
+    while (tmp != NULL)
+    {
+        count++;
+        tmp = tmp->suiv;
+    }
+    return count;
 }
 liste *supprimer_en_tete(liste *L)
 {
@@ -194,31 +224,35 @@ void inserer_au_position(liste *L, int val, int pos)
         L->fin = newElement;
     }
 }
-Element *chercher_premiere_occurrence(liste *L, int val)
+int chercher_premiere_occurrence(liste *L, int val)
 {
     Element *tmp = L->debut;
+    int pos = 1;
     while (tmp != NULL)
     {
         if (tmp->val == val)
         {
-            return tmp;
+            return pos;
         }
+        pos++;
         tmp = tmp->suiv;
     }
-    return NULL;
+    return 0;
 }
-Element *chercher_derniere_occurrence(liste *L, int val)
+int chercher_derniere_occurrence(liste *L, int val)
 {
     Element *tmp = L->fin;
+    int pos = compter_elements(L);
     while (tmp != NULL)
     {
         if (tmp->val == val)
         {
-            return tmp;
+            return pos;
         }
+        pos--;
         tmp = tmp->prec;
     }
-    return NULL;
+    return 0;
 }
 void supprimer_au_position(liste *L, int pos)
 {
@@ -312,32 +346,20 @@ int compter_occurrences(liste *L, int val)
     }
     return count;
 }
-int compter_elements(liste *L)
-{
-    int count = 0;
-    Element *tmp = L->debut;
-    while (tmp != NULL)
-    {
-        count++;
-        tmp = tmp->suiv;
+
+liste *transformer_en_doublement_chainee(Liste liste_simple, liste *L_doublon) {
+    if (liste_simple == NULL) {
+        return NULL;
     }
-    return count;
-}
-liste *transformer_en_doublement_chainee(liste *L)
-{
-    if (estVide(L))
-    {
-        return L;
+    L_doublon = initialiser_Liste(L_doublon);
+    
+    cellule *current = liste_simple;
+    while (current != NULL) {
+        L_doublon = ajout_Fin(L_doublon, current->val);
+        current = current->suivant;
     }
-    Element *tmp = L->debut;
-    Element *prev = NULL;
-    while (tmp != NULL)
-    {
-        tmp->prec = prev;
-        prev = tmp;
-        tmp = tmp->suiv;
-    }
-    return L;
+    
+    return L_doublon;
 }
 void trier_liste(liste *L)
 {
@@ -433,6 +455,14 @@ int main()
 {
     int choix = 0, val, pos;
     liste *L= initialiser_Liste(L);
+    int p=0;
+    liste *doubl = initialiser_Liste(doubl);
+    cellule *listesimple = initialiser_Liste_simple(listesimple);
+listesimple = Ajouter_Debut_Liste(listesimple, 5);
+listesimple = Ajouter_Debut_Liste(listesimple, 3);
+listesimple = Ajouter_Debut_Liste(listesimple, 56);
+listesimple = Ajouter_Debut_Liste(listesimple, 2);
+listesimple = Ajouter_Debut_Liste(listesimple, 1);
     do
 {
     printf("\nMenu:\n");
@@ -496,10 +526,11 @@ int main()
     case 8:
         printf("Entrez une valeur: ");
         scanf("%d", &val);
-        Element *premiere = chercher_premiere_occurrence(L, val);
-        if (premiere != NULL)
+        
+         p = chercher_premiere_occurrence(L, val);
+        if (p > 0)
         {
-            printf("Premiere occurrence de %d trouvee.\n", val);
+            printf("Premiere occurrence de %d trouvee a position %d.\n", val,p);
         }
         else
         {
@@ -509,10 +540,11 @@ int main()
     case 9:
         printf("Entrez une valeur: ");
         scanf("%d", &val);
-        Element *derniere = chercher_derniere_occurrence(L, val);
-        if (derniere != NULL)
+        
+        p = chercher_derniere_occurrence(L, val);
+        if (p > 0)
         {
-            printf("Derniere occurrence de %d trouvee.\n", val);
+            printf("Derniere occurrence de %d trouvee a position %d.\n", val,p);
         }
         else
         {
@@ -540,9 +572,12 @@ int main()
         printf("Nombre d'elements dans la liste: %d\n", compter_elements(L));
         break;
     case 14:
-        transformer_en_doublement_chainee(L);
+        doubl = transformer_en_doublement_chainee(listesimple, doubl);
         printf("Liste transformee en doublement chainee.\n");
-        Afficher_Liste(L);
+        printf("avant\n");
+        Afficher_Liste_Avant(doubl);
+        printf("arriere\n");
+        Afficher_Liste_Arriere(doubl);
         break;
     case 15:
         trier_liste(L);
