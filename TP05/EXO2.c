@@ -208,7 +208,7 @@ void inserer_au_position(Liste *liste, int val, int pos)
         tmp->suivant->precedent = newElement;
     }
     tmp->suivant = newElement;
-    if (newElement->suivant == liste->tete) // Update the tail pointer if necessary
+    if (newElement->suivant == liste->tete)
     {
         liste->tete->precedent = newElement;
     }
