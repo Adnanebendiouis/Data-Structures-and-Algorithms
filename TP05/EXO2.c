@@ -1,149 +1,146 @@
 #include <stdio.h>
 #include <stdlib.h>
-typedef struct ElementListe
-{
-    int val;
-    struct ElementListe *prec;
-    struct ElementListe *suiv;
+typedef struct Element {
+    int valeur;
+    struct Element *suivant;
+    struct Element *precedent;
 } Element;
-typedef struct DList
-{
-    struct ElementListe *debut;
-    struct ElementListe *fin;
-} liste;
-liste *initialiser_Liste(liste *L)
-{
-    L = malloc(sizeof(liste));
-    L->debut = NULL;
-    L->fin = NULL;
-    return L;
+typedef struct Liste {
+    Element *tete;
+} Liste;
+Liste *initialiser_liste() {
+    Liste *liste = (Liste *)malloc(sizeof(Liste));
+    liste->tete = NULL;
+    return liste;
 }
-int estVide(liste *L)
-{
-    if (L->debut == NULL)
-        return 1;
-    else
-        return 0;
+Element *creer_element(int valeur) {
+    Element *nouvel_element = (Element *)malloc(sizeof(Element));
+    nouvel_element->valeur = valeur;
+    nouvel_element->suivant = NULL;
+    nouvel_element->precedent = NULL;
+    return nouvel_element;
 }
-liste *ajout_en_tete(liste *L, int X)
-{
-    Element *newElement = malloc(sizeof(Element));
-    newElement->val = X;
-    newElement->prec = NULL;
-    if (estVide(L))
-    {
-        newElement->suiv = NULL;
-        L->debut = newElement;
-        L->fin = newElement;
-    }
-    else
-    {
-        newElement->suiv = L->debut;
-        L->debut->prec = newElement;
-        L->debut = newElement;
-    }
-    return L;
-}
+void ajout_debut(Liste *liste, int valeur) {
+    Element *nouvel_element = creer_element(valeur);
+    if (liste->tete == NULL) {
+        nouvel_element->suivant = nouvel_element;
+        nouvel_element->precedent = nouvel_element;
+        liste->tete = nouvel_element;
+    } else {
+        Element *dernier = liste->tete->precedent;
 
-void Afficher_Liste(liste *L)
-{
-    if (estVide(L))
-    {
-        printf("Liste Vide\n");
+        nouvel_element->suivant = liste->tete;
+        nouvel_element->precedent = dernier;
+        dernier->suivant = nouvel_element;
+        liste->tete->precedent = nouvel_element;
+
+        liste->tete = nouvel_element;
+    }
+}
+void ajout_fin(Liste *liste, int valeur) {
+    Element *nouvel_element = creer_element(valeur);
+    if (liste->tete == NULL) {
+        nouvel_element->suivant = nouvel_element;
+        nouvel_element->precedent = nouvel_element;
+        liste->tete = nouvel_element;
+    } else {
+        Element *dernier = liste->tete->precedent;
+
+        nouvel_element->suivant = liste->tete;
+        nouvel_element->precedent = dernier;
+        dernier->suivant = nouvel_element;
+        liste->tete->precedent = nouvel_element;
+    }
+}
+void supprimer_debut(Liste *liste) {
+    if (liste->tete == NULL) {
+        printf("Liste vide.\n");
         return;
     }
-    Element *tmp = L->debut;
-    while (tmp != NULL)
-    {
-        printf("%d <-> ", tmp->val);
-        tmp = tmp->suiv;
+
+    Element *a_supprimer = liste->tete;
+    if (a_supprimer->suivant == a_supprimer) {
+        liste->tete = NULL;
+    } else {
+        Element *dernier = liste->tete->precedent;
+
+        liste->tete = liste->tete->suivant;
+        liste->tete->precedent = dernier;
+        dernier->suivant = liste->tete;
     }
-    printf("NULL\n");
+    free(a_supprimer);
 }
-liste *ajout_Fin(liste *L, int X)
-{
-    Element *newElement = malloc(sizeof(Element));
-    newElement->val = X;
-    newElement->suiv = NULL;
-    if (estVide(L))
-    {
-        newElement->prec = NULL;
-        L->debut = newElement;
-        L->fin = newElement;
+void supprimer_fin(Liste *liste) {
+    if (liste->tete == NULL) {
+        printf("Liste vide.\n");
+        return;
     }
-    else
-    {
-        newElement->prec = L->fin;
-        L->fin->suiv = newElement;
-        L->fin = newElement;
-    }
-    return L;
-}
-liste *supprimer_en_tete(liste *L)
-{
-    if (!estVide(L))
-    {
-        if (L->debut == L->fin)
-        {
-            free(L);
-            return initialiser_Liste(L);
-        }
-        else
-        {
-            Element *suppElement = L->debut;
-            suppElement->suiv->prec = NULL;
-            L->debut = suppElement->suiv;
-            free(suppElement);
-        }
-    }
-    return L;
-}
-liste *supprimer_Fin(liste *L)
-{
-    if (!estVide(L))
-    {
-        if (L->debut == L->fin)
-        {
-            free(L);
-            return initialiser_Liste(L);
-        }
-        else
-        {
-            Element *suppElement = L->fin;
-            suppElement->prec->suiv = NULL;
-            L->fin = suppElement->prec;
-            free(suppElement);
-        }
-    }
-    return L;
-}
-void Afficher_Liste_Avant(liste *L)
-{
-    if (estVide(L))
-        printf("Liste Vide\n");
-    else
-    {
-        Element *tmp = L->debut;
-        while (tmp != NULL)
-        {
-            printf(" %d ", tmp->val);
-            tmp = tmp->suiv;
-        }
-        printf("\n");
+
+    Element *dernier = liste->tete->precedent;
+    if (dernier->suivant == dernier) {
+        free(dernier);
+        liste->tete = NULL;
+    } else {
+        Element *avant_dernier = dernier->precedent;
+
+        avant_dernier->suivant = liste->tete;
+        liste->tete->precedent = avant_dernier;
+        free(dernier);
     }
 }
-void Afficher_Liste_Arriere(liste *L)
-{
-    if (estVide(L))
-        printf("Liste Vide\n");
-    else
-    {
-        Element *tmp = L->fin;
-        while (tmp != NULL)
-        {
-            printf(" %d ", tmp->val);
-            tmp = tmp->prec;
-        }
-        printf("\n");
+void afficher_liste(Liste *liste) {
+    if (liste->tete == NULL) {
+        printf("Liste vide.\n");
+        return;
     }
+
+    Element *actuel = liste->tete;
+    do {
+        printf("%d ", actuel->valeur);
+        actuel = actuel->suivant;
+    } while (actuel != liste->tete);
+    printf("\n");
+}
+int main() {
+    Liste *liste = initialiser_liste();
+    int choix=0,val=0;
+    do{
+        printf("\nMenu:\n");
+    printf("1. Ajouter un element en debut\n");
+    printf("2. Ajouter un element en fin \n");
+    printf("3. Supprimer un element en tete de la liste\n");
+    printf("4. Supprimer un element en fin de la liste\n");
+    printf("5. Afficher la liste \n");
+    printf("6. Afficher la liste en ordre arriere\n");
+    switch (choix !=0)
+    {
+    case 1:
+    printf("entrer une valeur \n");
+    scanf("%d",&val);
+        liste = ajout_debut(liste, val);
+        break;
+    
+    default:
+        break;
+    }
+    }while(choix != 0);
+
+    printf("Ajout en début :\n");
+    ajout_debut(ma_liste, 10);
+    ajout_debut(ma_liste, 20);
+    afficher_liste(ma_liste);
+
+    printf("Ajout en fin :\n");
+    ajout_fin(ma_liste, 30);
+    afficher_liste(ma_liste);
+
+    printf("Suppression du début :\n");
+    supprimer_debut(ma_liste);
+    afficher_liste(ma_liste);
+
+    printf("Suppression de la fin :\n");
+    supprimer_fin(ma_liste);
+    afficher_liste(ma_liste);
+
+    return 0;
 }
