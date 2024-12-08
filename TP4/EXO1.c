@@ -186,7 +186,7 @@ void sup_apos(Liste *liste, int pos) {
     }
 }
 Liste copie(Liste liste){
-    Liste copie = liste;
+    Liste copie = liste;   
     return copie;
 }
 
