@@ -141,7 +141,7 @@ void supprimer_au_position(Liste *liste, int pos)
         return;
     }
 
-    if (actuel->suivant == actuel) // Si c'est le seul élément
+    if (actuel->suivant == actuel) 
     {
         free(actuel);
         liste->tete = NULL;
@@ -151,7 +151,7 @@ void supprimer_au_position(Liste *liste, int pos)
         actuel->precedent->suivant = actuel->suivant;
         actuel->suivant->precedent = actuel->precedent;
 
-        if (actuel == liste->tete) // Si l'élément supprimé est le premier
+        if (actuel == liste->tete) 
         {
             liste->tete = actuel->suivant;
         }
@@ -162,29 +162,29 @@ void supprimer_au_position(Liste *liste, int pos)
 void inserer_au_position(Liste *liste, int val, int pos)
 {
     Element *newElement = (Element *)malloc(sizeof(Element));
-    newElement->valeur = val; // Change val to valeur to match your structure
+    newElement->valeur = val;
     newElement->suivant = NULL;
     newElement->precedent = NULL;
 
-    if (pos == 1) // Insertion at the beginning
+    if (pos == 1)
     {
         newElement->suivant = liste->tete;
         if (liste->tete != NULL)
         {
             liste->tete->precedent = newElement;
         }
-        newElement->precedent = liste->tete->precedent; // New element precedes the current head
-        if (liste->tete == NULL) // If the list was empty
+        newElement->precedent = liste->tete->precedent; 
+        if (liste->tete == NULL)
         {
             newElement->suivant = newElement;
             newElement->precedent = newElement;
             liste->tete = newElement;
         }
-        else // List was not empty
+        else 
         {
-            liste->tete->precedent = newElement; // Update the tail's next pointer
+            liste->tete->precedent = newElement; 
         }
-        liste->tete = newElement; // Update head
+        liste->tete = newElement; 
         return;
     }
 
