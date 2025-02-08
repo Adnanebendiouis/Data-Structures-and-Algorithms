@@ -246,7 +246,15 @@ void afficher_liste_arriere(Liste *liste)
     } while (actuel != liste->tete->precedent);
     printf("\n");
 }
-
+liste suprimer(liste l, int val){
+    if(l == null){
+        printf("liste vide");
+        return l;
+        }
+    cell previous = l;
+    cell current = l;
+    while(current !=)
+}
 int main()
 {
     Liste *liste = initialiser_liste();
